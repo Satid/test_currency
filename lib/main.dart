@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_currency/pages/currency_page.dart';
+import 'package:test_currency/views/navigation_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const CurrencyPage(),
+      home: const NavigationPage(),
     );
   }
 }
