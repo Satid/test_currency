@@ -29,6 +29,10 @@ attr splitMinSmallestWidth
 attr splitMinWidth
 attr splitRatio
 attr ttcIndex
+bool enable_system_alarm_service_default
+bool enable_system_foreground_service_default
+bool enable_system_job_service_default
+bool workmanager_test_configuration
 color androidx_core_ripple_material_light
 color androidx_core_secondary_text_default_material_light
 color notification_action_color_filter
@@ -153,6 +157,7 @@ layout notification_template_icon_group
 layout notification_template_part_chronometer
 layout notification_template_part_time
 mipmap ic_launcher
+string androidx_startup
 string status_bar_notification_info_overflow
 style LaunchTheme
 style NormalTheme

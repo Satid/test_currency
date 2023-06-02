@@ -68,12 +68,6 @@
       "languageVersion": "2.17"
     },
     {
-      "name": "http",
-      "rootUri": "file:///Users/kor-mac/.pub-cache/hosted/pub.dev/http-0.13.6",
-      "packageUri": "lib/",
-      "languageVersion": "2.19"
-    },
-    {
       "name": "http_parser",
       "rootUri": "file:///Users/kor-mac/.pub-cache/hosted/pub.dev/http_parser-4.0.2",
       "packageUri": "lib/",
@@ -170,13 +164,19 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "workmanager",
+      "rootUri": "file:///Users/kor-mac/.pub-cache/hosted/pub.dev/workmanager-0.5.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "test_currency",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-05-31T14:36:30.539484Z",
+  "generated": "2023-06-02T06:33:05.516678Z",
   "generator": "pub",
   "generatorVersion": "2.19.3"
 }

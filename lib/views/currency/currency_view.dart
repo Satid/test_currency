@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:workmanager/workmanager.dart';
 
 import '../../models/currency_model.dart';
 import '../../repositories/currency/currency_api.dart';
@@ -13,16 +14,32 @@ class CurrencyView extends StatefulWidget {
 
 class _CurrencyViewState extends State<CurrencyView> {
 
-  var postsViewModel = CurrencyViewModel(currencyRepository: CurrencyAPI());
+  var currencyViewModel = CurrencyViewModel(currencyRepository: CurrencyAPI());
+  static const snackBar = SnackBar(
+    content: Text('Yay! A SnackBar!'),
+  );
+  @override
+  void setState(VoidCallback fn) {
+     super.setState(fn);
+  }
+
+  @pragma('vm:entry-point')
+  void callbackDispatcher() {
+    Workmanager().executeTask((task, inputData) {
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      return Future.value(true);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(postsViewModel.title),
+        title: Text(currencyViewModel.title),
       ),
       body: Center(
         child: FutureBuilder<CurrencyModel>(
-          future: postsViewModel.fetchAllPosts(),
+          future: currencyViewModel.fetchAll(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const CircularProgressIndicator();
@@ -30,8 +47,10 @@ class _CurrencyViewState extends State<CurrencyView> {
               var posts = snapshot.data;
               if(posts != null){
                 return  Text(posts.chartName.toString());
+
+                //return Container();
               }
-              return  Text("");
+              return  const Text("");
             }
           },
         ),
