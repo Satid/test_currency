@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:workmanager/workmanager.dart';
@@ -17,14 +20,35 @@ class CurrencyView extends StatefulWidget {
 
 class _CurrencyViewState extends State<CurrencyView> {
   var currencyViewModel = CurrencyViewModel(currencyRepository: CurrencyAPI());
+  bool isRunning = true;
+
   static const snackBar = SnackBar(
     content: Text('Yay! A SnackBar!'),
   );
+  //late int countTime = 0;
+
+  void insertHistory() {
+      setState(() {
+        currencyViewModel.writeJsonFile();
+        currencyViewModel.counter += 1;
+      });
+  }
 
   @override
-  void setState(VoidCallback fn) {
-    currencyViewModel.fetchAll();
-    super.setState(fn);
+  void initState() {
+    Timer.periodic(const Duration(seconds: 60), (Timer timer) {
+      if (!isRunning) {
+        timer.cancel();
+      }
+      insertHistory();
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    isRunning = false;
+    super.dispose();
   }
 
   @pragma('vm:entry-point')
@@ -69,9 +93,9 @@ class _CurrencyViewState extends State<CurrencyView> {
                               const SizedBox(
                                 width: 10,
                               ),
-                              Text("${data.chartName} ",
+                              Text("${data.chartName}",
                                   style: const TextStyle(
-                                      color: Colors.black, fontSize:24)),
+                                      color: Colors.black, fontSize: 24)),
                               const Spacer(),
                               const SizedBox(
                                 width: 10,
@@ -260,38 +284,6 @@ class _CurrencyViewState extends State<CurrencyView> {
                               )),
                         )),
                       ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 8, right: 8),
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      width: double.infinity,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: MaterialButton(
-                        onPressed: () {
-                          currencyViewModel.writeJsonFile();
-                          setState(() {
-                            // var getFieldValue = _textFieldValue.text.toString();
-                            // var getFieldRate = _textFieldRate.toString();
-                            // var getValue = double.parse(getFieldValue) /
-                            //     double.parse(getFieldRate);
-                            // _textFieldReturn = getValue;
-                          });
-                        },
-                        color: Colors.blueAccent,
-                        child: const Text(
-                          'Refresh',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
                     ),
                   ],
                 );

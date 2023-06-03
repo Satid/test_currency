@@ -27,11 +27,7 @@ class _CalculateViewState extends State<CalculateView> {
   var _textFieldReturn = 0.0;
 
   var format = NumberFormat("###,###,##0.000000000000", "en_US");
-
-  @override
-  void setState(VoidCallback fn) {
-    super.setState(fn);
-  }
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -39,6 +35,7 @@ class _CalculateViewState extends State<CalculateView> {
     _textFieldValue.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,132 +44,163 @@ class _CalculateViewState extends State<CalculateView> {
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        child: Column(
-          children: <Widget>[
-            Container(
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 4),
-              child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    side: BorderSide(width: 1, color: Colors.grey),
-                  ),
-                  onPressed: () {
-                    showCurrencyListBottom();
-                  },
-                  child: Container(
-                    padding: EdgeInsets.only(top: 12, bottom: 12),
-                    child: Row(children: [
-                      Text(
-                        _textFieldCurrency,
-                        style: TextStyle(
-                            fontFamily: 'Prompt',
-                            color: Colors.black,
-                            fontSize: 16),
-                      ),
-                      Spacer(),
-                      Icon(
-                        Icons.arrow_drop_down,
-                        color: Colors.grey,
-                      ),
-                    ]),
-                  )),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 4),
-              child: TextFormField(
-                controller: _textFieldValue,
-                decoration: InputDecoration(
-                  //prefixIcon: Icon(Icons.home_filled),
-                  label: Text("Enter Amount",
-                      style: TextStyle(color: Colors.grey, fontSize: 16)),
-                  contentPadding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0)),
-                ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                    child: Container(
-                  padding: const EdgeInsets.all(5),
-                  height: 67,
-                  child: Card(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: <Widget>[
+              Container(
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 4),
+                child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        side: const BorderSide(width: 0.0, color: Colors.black),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
-                      //color: Colors.white,
-                      child: InkWell(
-                        onTap: () {},
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: 16,
-                            ),
-                            Text("BTC : ",
-                                style: TextStyle(
-                                    color: Colors.grey, fontSize: 16)),
-                            SizedBox(
-                              width: 8,
-                            ),
-                            Text(
-                                "" +
-                                    (_textFieldReturn == 0
-                                        ? "-"
-                                        : format.format(_textFieldReturn)) +
-                                    " ",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16)),
-                            Spacer(),
-                            SizedBox(
-                              width: 20,
-                            ),
-                          ],
+                      side: BorderSide(width: 1, color: Colors.grey),
+                    ),
+                    onPressed: () {
+                      showCurrencyListBottom();
+                    },
+                    child: Container(
+                      padding: EdgeInsets.only(top: 12, bottom: 12),
+                      child: Row(children: [
+                        Text(
+                          _textFieldCurrency,
+                          style: const TextStyle(
+                              fontFamily: 'Prompt',
+                              color: Colors.black,
+                              fontSize: 16),
                         ),
-                      )),
-                )),
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              margin: EdgeInsets.only(left: 8, right: 8),
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              width: double.infinity,
-              height: 50,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
+                        Spacer(),
+                        Icon(
+                          Icons.arrow_drop_down,
+                          color: Colors.grey,
+                        ),
+                      ]),
+                    )),
               ),
-              child: MaterialButton(
-                onPressed: () {
-                  setState(() {
-                    var getFieldValue = _textFieldValue.text.toString();
-                    var getFieldRate = _textFieldRate.toString();
-                    var getValue = double.parse(getFieldValue) /
-                        double.parse(getFieldRate);
-                    _textFieldReturn = getValue;
-                  });
-                },
-                color: Colors.blueAccent,
-                child: const Text(
-                  'Calculate',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
+              Container(
+                width: MediaQuery.of(context).size.width,
+                padding:
+                    const EdgeInsets.only(left: 8, top: 8, right: 8, bottom: 4),
+                child: TextFormField(
+                  keyboardType: TextInputType.number,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter amount';
+                    }
+                    return null;
+                  },
+                  controller: _textFieldValue,
+                  decoration: InputDecoration(
+                    label: const Text("Enter Amount",
+                        style: TextStyle(color: Colors.grey, fontSize: 16)),
+                    contentPadding:
+                        const EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0)),
                   ),
                 ),
               ),
-            ),
-          ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                      child: Container(
+                    padding: const EdgeInsets.all(5),
+                    height: 67,
+                    child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          side:
+                              const BorderSide(width: 0.0, color: Colors.black),
+                        ),
+                        //color: Colors.white,
+                        child: InkWell(
+                          onTap: () {},
+                          child: Row(
+                            children: [
+                              const SizedBox(
+                                width: 16,
+                              ),
+                              const Text("BTC : ",
+                                  style: TextStyle(
+                                      color: Colors.grey, fontSize: 16)),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              Text(
+                                  "${_textFieldReturn == 0
+                                          ? "-"
+                                          : format.format(_textFieldReturn)} ",
+                                  style: const TextStyle(
+                                      color: Colors.black, fontSize: 16)),
+                              const Spacer(),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                            ],
+                          ),
+                        )),
+                  )),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                margin: const EdgeInsets.only(left: 8, right: 8),
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                width: double.infinity,
+                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: MaterialButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      setState(() {
+                        var getFieldValue = _textFieldValue.text.toString();
+                        var getFieldRate = _textFieldRate.toString();
+                        if (double.parse(getFieldRate) == 0) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Please Check Parameter ',
+                                    style: TextStyle(
+                                      color: Colors.redAccent,
+                                      fontSize: 16,
+                                    ))),
+                          );
+                        } else {
+                          var getValue = double.parse(getFieldValue) /
+                              double.parse(getFieldRate);
+                          _textFieldReturn = getValue;
+                        }
+                      });
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text('Please Check Parameter ',
+                                style: TextStyle(
+                                  color: Colors.redAccent,
+                                  fontSize: 16,
+                                ))),
+                      );
+                    }
+                  },
+                  color: Colors.blueAccent,
+                  child: const Text(
+                    'Calculate',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

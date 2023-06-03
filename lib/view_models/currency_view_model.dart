@@ -10,12 +10,14 @@ import '../repositories/currency/currency_repository.dart';
 
 class CurrencyViewModel {
   final String title = "Currency Update";
+  var counter = 0;
   CurrencyRepository? currencyRepository;
 
   CurrencyViewModel({this.currencyRepository});
 
   Future<CurrencyModel> fetchAll() async {
     CurrencyModel list = await currencyRepository!.getAllCurrency();
+    //writeJsonFile();
     return list;
   }
 
