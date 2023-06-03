@@ -7,26 +7,22 @@ import '../../models/currency_model.dart';
 
 class CurrencyAPI extends CurrencyRepository {
 
-  late final CurrencyModel person;
+  late final CurrencyModel currencyModel;
 
   @override
-  Future<CurrencyModel> getAllPosts() async {
+  Future<CurrencyModel> getAllCurrency() async {
 
     try {
       var response =
           await Dio().get('https://api.coindesk.com/v1/bpi/currentprice.json');
-      //final postsd = currencyModelFromJson(response.data);
-      //final Map<String, dynamic> data = json.decode(response.data);
-      // var list = response.data as List;
-      // posts = list.map((post) => PostModel.fromJson(post)).toList();
       Map<String, dynamic> map = jsonDecode(response.data);
-      person = CurrencyModel.fromJson(map);
+      currencyModel = CurrencyModel.fromJson(map);
       var check = "";
 
     } catch (exception) {
       print(exception);
     }
 
-    return person;
+    return currencyModel;
   }
 }

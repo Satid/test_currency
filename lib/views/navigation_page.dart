@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'currency/currency_view.dart';
+import 'filter/filter_view.dart';
 
 class NavigationPage extends StatefulWidget {
   const NavigationPage({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class _NavigationPageState extends State<NavigationPage> {
       fontSize: 12, fontWeight: FontWeight.normal, fontFamily: 'Prompt');
   static const List<Widget> _widgetOptions = <Widget>[
     CurrencyView(),
-    CurrencyView(),
+    FilterView(),
     CurrencyView(),
   ];
 
@@ -41,39 +42,39 @@ class _NavigationPageState extends State<NavigationPage> {
               BottomNavigationBarItem(
                 activeIcon: const Icon(
                   Icons.currency_bitcoin_outlined,
-                  color: Colors.redAccent,
+                  color: Colors.blueAccent,
                 ),
                 icon: Icon(
                   Icons.currency_bitcoin_outlined,
                   color: Colors.grey[700],
                 ),
-                label: 'CURRENCY',
+                label: 'Currency',
               ),
               BottomNavigationBarItem(
                 activeIcon: const Icon(
-                  Icons.filter_list_alt,
-                  color: Colors.redAccent,
+                  Icons.calculate_outlined,
+                  color: Colors.blueAccent,
                 ),
                 icon: Icon(
-                  Icons.filter_list_alt,
+                  Icons.calculate_outlined,
                   color: Colors.grey[700],
                 ),
-                label: 'FILLTER',
+                label: 'Calculate',
               ),
               BottomNavigationBarItem(
                 activeIcon: const Icon(
                   Icons.access_time,
-                  color: Colors.redAccent,
+                  color: Colors.blueAccent,
                 ),
                 icon: Icon(
                   Icons.access_time,
                   color: Colors.grey[700],
                 ),
-                label: 'HISTORY',
+                label: 'History',
               )
             ],
             currentIndex: _selectedIndex,
-            selectedItemColor: Colors.redAccent,
+            selectedItemColor: Colors.blueAccent,
             selectedFontSize: 12,
             onTap: _onItemTapped,
           ),
