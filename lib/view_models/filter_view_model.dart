@@ -7,7 +7,7 @@ import '../models/currency_model.dart';
 import '../repositories/currency/currency_repository.dart';
 
 class FilterViewModel {
-  final String title = "Currency BTC";
+  final String title = "Calculate Currency to BTC";
   CurrencyRepository? currencyRepository;
   FilterViewModel({this.currencyRepository});
 

@@ -23,6 +23,7 @@ class _CurrencyViewState extends State<CurrencyView> {
 
   @override
   void setState(VoidCallback fn) {
+    currencyViewModel.fetchAll();
     super.setState(fn);
   }
 
@@ -62,13 +63,133 @@ class _CurrencyViewState extends State<CurrencyView> {
                       children: [
                         Expanded(
                             child: Container(
-                          padding: const EdgeInsets.all(8),
-                          height: 80,
+                          padding: const EdgeInsets.all(5),
+                          child: Row(
+                            children: [
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text("${data.chartName} ",
+                                  style: const TextStyle(
+                                      color: Colors.black, fontSize:24)),
+                              const Spacer(),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                            ],
+                          ),
+                        )),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                            child: Container(
+                          padding: const EdgeInsets.all(5),
+                          child: Row(
+                            children: [
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text("Last Update : ${data.time.updated} ",
+                                  style: const TextStyle(
+                                      color: Colors.black, fontSize: 16)),
+                              const Spacer(),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                            ],
+                          ),
+                        )),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                            child: Container(
+                          padding: const EdgeInsets.all(5),
+                          child: Row(
+                            children: [
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Flexible(
+                                child: Text("${data.disclaimer} ",
+                                    maxLines: 3,
+                                    style: const TextStyle(
+                                        color: Colors.grey, fontSize: 14)),
+                              ),
+                              const Spacer(),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                            ],
+                          ),
+                        )),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                            child: Container(
+                          padding: const EdgeInsets.all(5),
+                          height: 65,
                           child: Card(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                                 side: const BorderSide(
-                                    width: 0.0, color: Colors.grey),
+                                    width: 0.0, color: Colors.black),
+                              ),
+                              color: Colors.white,
+                              child: InkWell(
+                                onTap: () {},
+                                child: Row(
+                                  children: [
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                    Text("${data.bpi.usd.code} : ",
+                                        style: const TextStyle(
+                                            color: Colors.grey, fontSize: 16)),
+                                    const SizedBox(
+                                      width: 8,
+                                    ),
+                                    Text(
+                                        "${format.format(data.bpi.usd.rateFloat)} ${htmlParser.DocumentFragment.html(data.bpi.usd.symbol).outerHtml}",
+                                        style: const TextStyle(
+                                            color: Colors.black, fontSize: 16)),
+                                    const Spacer(),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        )),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                            child: Container(
+                          padding: const EdgeInsets.all(5),
+                          height: 65,
+                          child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                side: const BorderSide(
+                                    width: 0.0, color: Colors.black),
                               ),
                               color: Colors.white,
                               child: InkWell(
@@ -78,24 +199,16 @@ class _CurrencyViewState extends State<CurrencyView> {
                                     SizedBox(
                                       width: 20,
                                     ),
-                                    Text(data.bpi.usd.code.toString() + " : ",
+                                    Text("${data.bpi.gbp.code} : ",
                                         style: TextStyle(
                                             color: Colors.grey, fontSize: 16)),
                                     SizedBox(
                                       width: 8,
                                     ),
                                     Text(
-                                        "" +
-                                            format.format(
-                                                data.bpi.usd.rateFloat) +
-                                            " " +
-                                            htmlParser.DocumentFragment.html(
-                                                    data.bpi.usd.symbol)
-                                                .outerHtml,
-                                        style: TextStyle(
-                                            fontFamily: 'Prompt',
-                                            color: Colors.grey,
-                                            fontSize: 16)),
+                                        "${format.format(data.bpi.gbp.rateFloat)} ${htmlParser.DocumentFragment.html(data.bpi.gbp.symbol).outerHtml}",
+                                        style: const TextStyle(
+                                            color: Colors.black, fontSize: 16)),
                                     Spacer(),
                                     SizedBox(
                                       width: 20,
@@ -112,40 +225,32 @@ class _CurrencyViewState extends State<CurrencyView> {
                       children: [
                         Expanded(
                             child: Container(
-                          padding: EdgeInsets.all(8),
-                          height: 80,
+                          padding: EdgeInsets.all(5),
+                          height: 65,
                           child: Card(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                                 side: const BorderSide(
-                                    width: 0.0, color: Colors.grey),
+                                    width: 0.0, color: Colors.black),
                               ),
                               color: Colors.white,
                               child: InkWell(
                                 onTap: () {},
                                 child: Row(
                                   children: [
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 20,
                                     ),
-                                    Text(data.bpi.gbp.code.toString() + " : ",
-                                        style: TextStyle(
+                                    Text("${data.bpi.eur.code} : ",
+                                        style: const TextStyle(
                                             color: Colors.grey, fontSize: 16)),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 8,
                                     ),
                                     Text(
-                                        "" +
-                                            format.format(
-                                                data.bpi.gbp.rateFloat) +
-                                            " " +
-                                            htmlParser.DocumentFragment.html(
-                                                    data.bpi.gbp.symbol)
-                                                .outerHtml,
+                                        "${format.format(data.bpi.eur.rateFloat)} ${htmlParser.DocumentFragment.html(data.bpi.eur.symbol).outerHtml}",
                                         style: TextStyle(
-                                            fontFamily: 'Prompt',
-                                            color: Colors.grey,
-                                            fontSize: 16)),
+                                            color: Colors.black, fontSize: 16)),
                                     Spacer(),
                                     SizedBox(
                                       width: 20,
@@ -156,55 +261,37 @@ class _CurrencyViewState extends State<CurrencyView> {
                         )),
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                            child: Container(
-                          padding: EdgeInsets.all(8),
-                          height: 80,
-                          child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                side: const BorderSide(
-                                    width: 0.0, color: Colors.grey),
-                              ),
-                              color: Colors.white,
-                              child: InkWell(
-                                onTap: () {},
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Text(data.bpi.eur.code.toString() + " : ",
-                                        style: TextStyle(
-                                            color: Colors.grey, fontSize: 16)),
-                                    SizedBox(
-                                      width: 8,
-                                    ),
-                                    Text(
-                                        "" +
-                                            format.format(
-                                                data.bpi.eur.rateFloat) +
-                                            " " +
-                                            htmlParser.DocumentFragment.html(
-                                                    data.bpi.eur.symbol)
-                                                .outerHtml,
-                                        style: TextStyle(
-                                            fontFamily: 'Prompt',
-                                            color: Colors.grey,
-                                            fontSize: 16)),
-                                    Spacer(),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                  ],
-                                ),
-                              )),
-                        )),
-                      ],
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 8, right: 8),
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      width: double.infinity,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: MaterialButton(
+                        onPressed: () {
+                          currencyViewModel.fetchAll();
+                          setState(() {
+                            // var getFieldValue = _textFieldValue.text.toString();
+                            // var getFieldRate = _textFieldRate.toString();
+                            // var getValue = double.parse(getFieldValue) /
+                            //     double.parse(getFieldRate);
+                            // _textFieldReturn = getValue;
+                          });
+                        },
+                        color: Colors.blueAccent,
+                        child: const Text(
+                          'Refresh',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 );
