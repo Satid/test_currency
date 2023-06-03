@@ -9,17 +9,17 @@ import '../../view_models/currency_view_model.dart';
 
 import 'package:html/dom.dart' as htmlParser;
 
-import '../../view_models/filter_view_model.dart';
+import '../../view_models/calculate_view_model.dart';
 
-class FilterView extends StatefulWidget {
-  const FilterView({Key? key}) : super(key: key);
+class CalculateView extends StatefulWidget {
+  const CalculateView({Key? key}) : super(key: key);
 
   @override
-  State<FilterView> createState() => _FilterViewState();
+  State<CalculateView> createState() => _CalculateViewState();
 }
 
-class _FilterViewState extends State<FilterView> {
-  var filterViewModel = FilterViewModel(currencyRepository: CurrencyAPI());
+class _CalculateViewState extends State<CalculateView> {
+  var filterViewModel = CalculateViewModel(currencyRepository: CurrencyAPI());
 
   var _textFieldCurrency = "Select Currency";
   var _textFieldRate = 0.0;
@@ -87,7 +87,7 @@ class _FilterViewState extends State<FilterView> {
                 controller: _textFieldValue,
                 decoration: InputDecoration(
                   //prefixIcon: Icon(Icons.home_filled),
-                  label: Text("Enter Rate",
+                  label: Text("Enter Amount",
                       style: TextStyle(color: Colors.grey, fontSize: 16)),
                   contentPadding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
                   border: OutlineInputBorder(
@@ -129,8 +129,7 @@ class _FilterViewState extends State<FilterView> {
                                         : format.format(_textFieldReturn)) +
                                     " ",
                                 style: TextStyle(
-                                    fontFamily: 'Prompt',
-                                    color: Colors.grey,
+                                    color: Colors.black,
                                     fontSize: 16)),
                             Spacer(),
                             SizedBox(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:test_currency/views/calculate/calculate_view.dart';
 
 import 'currency/currency_view.dart';
-import 'filter/filter_view.dart';
 import 'history/history_view.dart';
 
 class NavigationPage extends StatefulWidget {
@@ -17,7 +17,7 @@ class _NavigationPageState extends State<NavigationPage> {
       fontSize: 12, fontWeight: FontWeight.normal);
   static const List<Widget> _widgetOptions = <Widget>[
     CurrencyView(),
-    FilterView(),
+    CalculateView(),
     HistoryView(),
   ];
 

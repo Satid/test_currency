@@ -6,10 +6,10 @@ import 'package:test_currency/models/currency_list_model.dart';
 import '../models/currency_model.dart';
 import '../repositories/currency/currency_repository.dart';
 
-class FilterViewModel {
+class CalculateViewModel {
   final String title = "Calculate Currency to BTC";
   CurrencyRepository? currencyRepository;
-  FilterViewModel({this.currencyRepository});
+  CalculateViewModel({this.currencyRepository});
 
   Future<List<CurrencyListModel>> fetchAllSelect() async {
     CurrencyModel currencyModel = await currencyRepository!.getAllCurrency();
