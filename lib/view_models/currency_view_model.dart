@@ -30,6 +30,19 @@ class CurrencyViewModel {
     CurrencyModel currencyModel = await currencyRepository!.getAllCurrency();
     List<CurrencyModel> historyListModel = <CurrencyModel>[];
 
+    Directory dir = await getTemporaryDirectory();
+    File filePath = File("${dir.path}/currencyHistory.json");
+    bool fileExists = filePath.existsSync();
+    if (fileExists) {
+      String jsonData = filePath.readAsStringSync();
+      var map = jsonDecode(jsonData) as List;
+      historyListModel = (map)
+          .map((i) => CurrencyModel.fromJson(i))
+          .toList();
+    } else {
+      print('File Not Found');
+    }
+
     if (currencyModel != null) {
       historyListModel.add(currencyModel);
       String jsonForWrite = jsonEncode(historyListModel);

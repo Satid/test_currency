@@ -14,7 +14,7 @@ class NavigationPage extends StatefulWidget {
 class _NavigationPageState extends State<NavigationPage> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle = TextStyle(
-      fontSize: 12, fontWeight: FontWeight.normal, fontFamily: 'Prompt');
+      fontSize: 12, fontWeight: FontWeight.normal);
   static const List<Widget> _widgetOptions = <Widget>[
     CurrencyView(),
     FilterView(),

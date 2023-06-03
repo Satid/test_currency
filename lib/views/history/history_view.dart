@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../models/currency_model.dart';
 import '../../repositories/currency/currency_api.dart';
 import '../../view_models/history_view_model.dart';
+
+import 'package:html/dom.dart' as htmlParser;
+
 class HistoryView extends StatefulWidget {
   const HistoryView({Key? key}) : super(key: key);
 
@@ -11,8 +15,8 @@ class HistoryView extends StatefulWidget {
 }
 
 class _HistoryViewState extends State<HistoryView> {
-
-  var historyViewModel = HistoryViewModel(currencyRepository: CurrencyAPI());
+  var historyViewModel = HistoryViewModel();
+  var format = NumberFormat("###,###,###.000", "en_US");
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +29,9 @@ class _HistoryViewState extends State<HistoryView> {
         child: Column(
           children: <Widget>[
             Container(
-              height: MediaQuery.of(context).size.height - 260,
-              margin: EdgeInsets.only(
-                  left: 8, top: 8, right: 4, bottom: 8),
-              child:
-              FutureBuilder<List<CurrencyModel>>(
+              height: MediaQuery.of(context).size.height - (AppBar().preferredSize.height + 100),
+              margin: EdgeInsets.only(left: 8, top: 8, right: 4, bottom: 8),
+              child: FutureBuilder<List<CurrencyModel>>(
                 future: historyViewModel.fetchAllHistory(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
@@ -47,113 +49,92 @@ class _HistoryViewState extends State<HistoryView> {
                         return ListTile(
                           contentPadding: EdgeInsets.all(0.0),
                           title: Column(
-                            mainAxisAlignment:
-                            MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Row(
-                                crossAxisAlignment:
-                                CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                      BorderRadius.circular(25),
-                                      side: BorderSide(
-                                          width: 0.0,
-                                          color: Colors.transparent),
-                                    ),
-                                    color: Colors.grey,
-                                    child: Container(
-                                        height: 40,
-                                        padding:
-                                        const EdgeInsets.all(4),
-                                        child: Image.asset(
-                                          'assets/images/ic_store.png',
-                                        )),
-                                  ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 1,
                                   ),
                                   Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 2,
                                       ),
                                       Row(
                                         children: [
-                                          SizedBox(
-                                            width: 4,
-                                          ),
-                                          Text(historyListModel.time.updated,
-                                              style: TextStyle(
-                                                  color: Color(
-                                                      0xff2C4F6B),
-                                                  fontSize: 16)),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          SizedBox(
+                                          const SizedBox(
                                             width: 4,
                                           ),
                                           Text(
-                                              "ประเภท : " +
-                                                  historyListModel.chartName +
-                                                  "",
-                                              style: TextStyle(
-                                                  fontFamily:
-                                                  'Prompt',
-                                                  color: Color(
-                                                      0xff2C4F6B),
+                                              "Update : ${historyListModel.time.updated}",
+                                              style: const TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 16)),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: [
+                                          const SizedBox(
+                                            width: 4,
+                                          ),
+                                          Text(
+                                              "${historyListModel.bpi.usd.code} : ${format.format(historyListModel.bpi.usd.rateFloat)} ${htmlParser.DocumentFragment.html(historyListModel.bpi.usd.symbol).outerHtml}",
+                                              style: const TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 12))
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Row(
+                                        children: [
+                                          const SizedBox(
+                                            width: 4,
+                                          ),
+                                          Text(
+                                              "${historyListModel.bpi.gbp.code} : ${format.format(historyListModel.bpi.gbp.rateFloat)} ${htmlParser.DocumentFragment.html(historyListModel.bpi.gbp.symbol).outerHtml}",
+                                              style: const TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 12))
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Row(
+                                        children: [
+                                          const SizedBox(
+                                            width: 4,
+                                          ),
+                                          Text(
+                                              "${historyListModel.bpi.eur.code} : ${format.format(historyListModel.bpi.eur.rateFloat)} ${htmlParser.DocumentFragment.html(historyListModel.bpi.eur.symbol).outerHtml}",
+                                              style: const TextStyle(
+                                                  color: Colors.grey,
                                                   fontSize: 12))
                                         ],
                                       ),
                                     ],
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 1,
                                   ),
-                                  Spacer(),
-                                  Container(
-                                      margin:
-                                      EdgeInsets.only(top: 16),
-                                      height: 40,
-                                      padding:
-                                      const EdgeInsets.all(10),
-                                      child: Image.asset(
-                                        'assets/images/ic_next.png',
-                                      )),
                                 ],
                               )
                             ],
                           ),
-                          onTap: () {
-                            Navigator.pop(context);
-                            // List<LatLng> list = [];
-                            // list.add(LatLng(trackingModel.latitude,
-                            //     trackingModel.longitude));
-                            // Future.delayed(
-                            //     Duration(milliseconds: 500),
-                            //         () => controllerSingle.animateCamera(
-                            //         CameraUpdate.newLatLngBounds(
-                            //             boundsFromLatLngList(list),
-                            //             50)));
-
-                            //this.dispose();
-
-                            // Future.delayed(
-                            //     Duration(milliseconds: 700),
-                            //         () => showModalPoiBottom(
-                            //         trackingModel));
-                            // markerPoiSelect(trackingModel, index);
-                          },
+                          onTap: () {},
                         );
                       },
-                      separatorBuilder:
-                          (BuildContext context, int index) {
-                        return Divider();
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const Divider();
                       },
                     );
                   }
@@ -167,12 +148,12 @@ class _HistoryViewState extends State<HistoryView> {
 
                   return Center(
                       child: SizedBox(
-                        width: 40,
-                        height: 40,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 4,
-                        ),
-                      ));
+                    width: 40,
+                    height: 40,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 4,
+                    ),
+                  ));
                   // return Container( );
                   // return Container(
                   //   child: Image.asset('assets/images/ic_no_data.png',
