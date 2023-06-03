@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'currency/currency_view.dart';
 import 'filter/filter_view.dart';
+import 'history/history_view.dart';
 
 class NavigationPage extends StatefulWidget {
   const NavigationPage({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class _NavigationPageState extends State<NavigationPage> {
   static const List<Widget> _widgetOptions = <Widget>[
     CurrencyView(),
     FilterView(),
-    CurrencyView(),
+    HistoryView(),
   ];
 
   void _onItemTapped(int index) {

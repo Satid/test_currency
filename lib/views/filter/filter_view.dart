@@ -20,9 +20,6 @@ class FilterView extends StatefulWidget {
 
 class _FilterViewState extends State<FilterView> {
   var filterViewModel = FilterViewModel(currencyRepository: CurrencyAPI());
-  static const snackBar = SnackBar(
-    content: Text('Yay! A SnackBar!'),
-  );
 
   var _textFieldCurrency = "Select Currency";
   var _textFieldRate = 0.0;
@@ -42,15 +39,6 @@ class _FilterViewState extends State<FilterView> {
     _textFieldValue.dispose();
     super.dispose();
   }
-
-  @pragma('vm:entry-point')
-  void callbackDispatcher() {
-    Workmanager().executeTask((task, inputData) {
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      return Future.value(true);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

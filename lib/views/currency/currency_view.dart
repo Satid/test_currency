@@ -274,7 +274,7 @@ class _CurrencyViewState extends State<CurrencyView> {
                       ),
                       child: MaterialButton(
                         onPressed: () {
-                          currencyViewModel.fetchAll();
+                          currencyViewModel.writeJsonFile();
                           setState(() {
                             // var getFieldValue = _textFieldValue.text.toString();
                             // var getFieldRate = _textFieldRate.toString();

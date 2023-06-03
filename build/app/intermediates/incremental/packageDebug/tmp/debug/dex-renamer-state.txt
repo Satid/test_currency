@@ -1,4 +1,4 @@
-#Sat Jun 03 10:39:36 ICT 2023
+#Sat Jun 03 13:55:19 ICT 2023
 base.0=/Users/kor-mac/Desktop/SRC/test_currency/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
